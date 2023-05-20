@@ -30,6 +30,7 @@ exports.registerUser = catchAsyncError(async(req,res,next) => {
 
 })
 
+// login user
 exports.loginUser = catchAsyncError(async(req,res,next) => {
 
     const {email, password} = req.body;
@@ -61,4 +62,20 @@ exports.loginUser = catchAsyncError(async(req,res,next) => {
 
     sendToken(user,200,res);   // function to send token in jwtToken file
  
+})
+
+// logout user
+exports.logout = catchAsyncError(async(req,res,next) => {
+
+    const options = {
+        expires : new Date(Date.now()),
+        httpOnly : true
+    };
+
+    res.cookie("token",null,options);
+
+    res.status(200).json({
+        success : true,
+        message : "Logged Out"
+    })
 })
