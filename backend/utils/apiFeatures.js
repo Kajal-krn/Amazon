@@ -38,8 +38,16 @@ class ApiFeatures{
         console.log(JSON.parse(queryStr1));
         this.query = this.query.find(JSON.parse(queryStr1));
 
+        return this;
+    }
 
-       return this;
+    pagination(resultPerPage){
+        const currentPage = Number(this.queryStr.page) || 1; //current page else first page i.e. 1
+        
+        const skipProducts = resultPerPage*(currentPage-1);  // no of prod to skip . e.g. rPP = 10, cP = 3,  so sP = 10*(3-1) = 20 prod, i.e show from 21 to 30.
+
+        this.query = this.query.limit(resultPerPage).skip(skipProducts);
+        return this;
     }
 }
 
