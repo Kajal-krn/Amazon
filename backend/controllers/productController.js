@@ -1,6 +1,7 @@
 const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
+const ApiFeatures = require("../utils/apiFeatures");
 
 //create  product --Admin
 exports.createProduct = catchAsyncErrors(async(req,res,next) => {   // passed the while async function inside catchAsyncError , so it carched the error and not let the server crash
@@ -15,8 +16,10 @@ exports.createProduct = catchAsyncErrors(async(req,res,next) => {   // passed th
 
 // get all products
 exports.getAllProducts = catchAsyncErrors(async(req,res) => {
-    
-    const products = await Product.find();
+
+    const apiFeatures = new ApiFeatures(Product.find(),req.query).search().filter();
+    const products = await apiFeatures.query
+
     res.status(200).json({
         success: true,
         products
