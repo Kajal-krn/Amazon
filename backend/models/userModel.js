@@ -56,4 +56,9 @@ userSchema.methods.getJWTToken = function(){
     });
 }
 
+// compare password
+userSchema.methods.comaprePassword = async function(passwordEntered){
+    return await bycript.compare(passwordEntered, this.password);  // comapring password entered with hashed password
+}
+
 module.exports = mongoose.model("User", userSchema);
