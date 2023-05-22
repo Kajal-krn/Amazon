@@ -225,12 +225,59 @@ exports.getSingleUser = catchAsyncError(async(req,res,next) => {
     const user = await User.findById(id);
 
     if(!user){
-        return next(new ErrorHandler(`User does not exist with Id : ${id}`));
+        return next(new ErrorHandler(`User does not exist with Id : ${id}`,404));
     }
 
     res.status(200).json({
         success : true,
         user
+    });
+
+})
+
+// update user role -admin
+exports.updateUserRole = catchAsyncError( async(req,res,next) => {
+
+    const {name,email,role} = req.body;
+
+    const {id} = req.params;
+
+    const newUserData = {
+        name,
+        email,
+        role
+    }
+
+    const user = await User.findByIdAndUpdate(id, newUserData, {
+        new : true,
+        runValidators : true,
+        useFindAndModify : false
+    })
+
+    res.status(200).json({
+        success : true
+    });
+
+})
+
+// delete user -admin
+exports.deleteUser = catchAsyncError( async(req,res,next) => {
+
+    const {id} = req.params;
+
+    const user = await User.findById(id);
+
+    if(!user){
+        return next(new ErrorHandler(`User does not exist with Id : ${id}`, 404));
+    }
+
+    // cloudinary avatar should be deleted
+
+    await user.remove();
+
+    res.status(200).json({
+        success : true,
+        message : "User deleted successfully"
     });
 
 })
