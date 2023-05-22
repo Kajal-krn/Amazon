@@ -205,3 +205,32 @@ exports.updateProfile = catchAsyncError( async(req,res,next) => {
 
 })
 
+// get all users -admin
+exports.getAllUser = catchAsyncError(async(req,res,next) => {
+
+    const users = await User.find();
+
+    res.status(200).json({
+        success : true,
+        users
+    });
+
+})
+
+// get single user details -admin
+exports.getSingleUser = catchAsyncError(async(req,res,next) => {
+
+    const {id} = req.params;
+
+    const user = await User.findById(id);
+
+    if(!user){
+        return next(new ErrorHandler(`User does not exist with Id : ${id}`));
+    }
+
+    res.status(200).json({
+        success : true,
+        user
+    });
+
+})
