@@ -180,3 +180,28 @@ exports.updatePassword = catchAsyncError(async(req,res,next) => {
     sendToken(user,200,res);
 
 })
+
+// update user profile
+exports.updateProfile = catchAsyncError( async(req,res,next) => {
+
+    const {name,email} = req.body;
+
+    const newUserData = {
+        name,
+        email
+    }
+
+    // Cloudinary for avatar will be added later
+
+    const user = await User.findByIdAndUpdate(req.user.id, newUserData, {
+        new : true,
+        runValidators : true,
+        useFindAndModify : false
+    })
+
+    res.status(200).json({
+        success : true
+    });
+
+})
+
