@@ -5,6 +5,8 @@ const ApiFeatures = require("../utils/apiFeatures");
 
 //create  product --Admin
 exports.createProduct = catchAsyncErrors(async(req,res,next) => {   // passed the while async function inside catchAsyncError , so it carched the error and not let the server crash
+    
+    req.body.user = req.user.id;   // ading a new field (user) in req.boy for product create
     //console.log(req.body);
     const product = await Product.create(req.body);
 

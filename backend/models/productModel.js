@@ -61,6 +61,11 @@ const productSchema = new mongoose.Schema({
             }
         }
     ],
+    user : { // which admin created it
+        type : mongoose.Schema.ObjectId,
+        ref : "User",
+        required : true
+    },
     createdAt : {
         type : Date,
         default : Date.now
