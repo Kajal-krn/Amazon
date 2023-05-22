@@ -143,6 +143,40 @@ exports.resetPassword = catchAsyncError(async(req,res,next) => {
     await user.save();
 
     sendToken(user,200,res);
-
     
+})
+
+// get user detail
+exports.getUserDetails = catchAsyncError(async(req,res,next) => {
+
+    const user = await User.findById(req.user.id);
+
+    res.status(200).json({
+        success : true,
+        user
+    })
+
+})
+
+// update User Password
+exports.updatePassword = catchAsyncError(async(req,res,next) => {
+
+    const user = await User.findById(req.user.id).select("+password");
+
+    const PasswordMatched = await user.comaprePassword(req.body.oldPassword);   // function is userModel file to compare password
+
+    if(!PasswordMatched){
+        return next(new ErrorHandler("Old Password is incoorent",400));
+    }
+
+    if(req.body.newPassword != req.body.confirmPassword){
+        return next(new ErrorHandler("Password does not match",400));
+    }
+
+    user.password = req.body.newPassword;
+    
+    await user.save();
+
+    sendToken(user,200,res);
+
 })
