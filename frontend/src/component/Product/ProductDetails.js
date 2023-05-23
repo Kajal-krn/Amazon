@@ -1,6 +1,6 @@
 import React,  { Fragment, useEffect } from 'react'
 import Carousel from "react-material-ui-carousel"
-import {getProductDetails} from "../../actions/productAction.js"
+import {clearErrors, getProductDetails} from "../../actions/productAction.js"
 import {useDispatch, useSelector} from "react-redux"
 import ReactStars from 'react-rating-stars-component'
 import Loader from '../layout/Loader/Loader.js'
@@ -26,7 +26,8 @@ const ProductDetails = ({match}) => {
 
     useEffect(() => {
         if(error){
-            return alert.error(error);
+            alert.error(error);
+            dispatch(clearErrors());
         }
         dispatch(getProductDetails(match.params.productId))
     },[dispatch,match.params.productId,error,alert]);
