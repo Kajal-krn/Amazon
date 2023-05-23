@@ -4,9 +4,13 @@ import {
     ALL_PRODUCT_REQUEST,
     ALL_PRODUCT_SUCCESS,
     ALL_PRODUCT_FAIL,
+    PRODUCT_DETAILS_REQUEST,
+    PRODUCT_DETAILS_SUCCESS,
+    PRODUCT_DETAILS_FAIL,
     CLEAR_ERRORS
 } from "../constants/productConstants"
 
+// getting all products
 export const getProduct = () => async(dispatch) => {
     try{
         dispatch({
@@ -27,7 +31,28 @@ export const getProduct = () => async(dispatch) => {
     }
 }
 
-// clearign errors
+// get product details
+export const getProductDetails = (productId) => async(dispatch) => {
+    try{
+        dispatch({
+            type : PRODUCT_DETAILS_REQUEST
+        })
+
+        const {data} = await axios.get(`/api/v1/products/${productId}`);
+
+        dispatch({
+            type : PRODUCT_DETAILS_SUCCESS,
+            payload : data
+        })
+    }catch(error){
+        dispatch({
+            type : PRODUCT_DETAILS_FAIL,
+            payload : error.response.data.message
+        })
+    }
+}
+
+// clearing errors
 export const clearErrors = () => async(dispatch) => {
     dispatch({
         type : CLEAR_ERRORS
