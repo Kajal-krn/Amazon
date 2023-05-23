@@ -5,13 +5,7 @@ import Product from '../Product/Product.js'
 import MetaData from "../layout/MetaData.js"
 import { getProduct } from '../../actions/productAction'
 import {useSelector, useDispatch} from "react-redux";
-
-// const product = {
-//     name : "Black Tshirt",
-//     images : [{ url : "https://5.imimg.com/data5/GX/XW/MY-67450080/mens-black-plain-t-shirt-500x500.jpg" }],
-//     price : "$99",
-//     _id : "Aman"
-// }
+import Loader from '../layout/Loader/Loader'
 
 const Home = () => {
 
@@ -20,35 +14,42 @@ const Home = () => {
 
     useEffect(() => {
         dispatch(getProduct());
-    },[dispatch])
+    },[dispatch]) 
 
     return (
+
         <Fragment>
+            {loading ? (
+                <Loader />   // loading component
+            ) : (
+                <Fragment>
 
-            <MetaData title="AMAZON" />
+                    <MetaData title="AMAZON" />
 
-            <div className="banner">
-                <p>Welcome to Amazon</p>
-                <h1>FIND AMAZING PRODUCTS BELOW</h1>
+                    <div className="banner">
+                        <p>Welcome to Amazon</p>
+                        <h1>FIND AMAZING PRODUCTS BELOW</h1>
 
-                 <a href="#container">  {/*refering to container below */}
-                    <button>
-                        Scroll <CgMouse />
-                    </button>
-                </a>
-            </div>
+                        <a href="#container">  {/*refering to container below */}
+                            <button>
+                                Scroll <CgMouse />
+                            </button>
+                        </a>
+                    </div>
 
-            <h2 className="homeHeading">Featured Products</h2>
+                    <h2 className="homeHeading">Featured Products</h2>
 
-            <div className="container" id="container">
+                    <div className="container" id="container">
 
-                {products && products.map((product) => (
-                    <Product product={product} key={product._id}/>
-                ))}
+                        {products && products.map((product) => (
+                            <Product product={product} key={product._id}/>
+                        ))}
 
-               
-            </div>
+                    
+                    </div>
 
+                </Fragment>
+            )}
         </Fragment>
     )
 }
