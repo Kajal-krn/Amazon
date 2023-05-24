@@ -11,7 +11,7 @@ import {
 } from "../constants/productConstants"
 
 // getting all products
-export const getProduct = () => async(dispatch) => {
+export const getProducts = () => async(dispatch) => {
     try{
         dispatch({
             type : ALL_PRODUCT_REQUEST

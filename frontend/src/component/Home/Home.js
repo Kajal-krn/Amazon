@@ -3,7 +3,7 @@ import {CgMouse} from "react-icons/all"
 import "./Home.css"
 import ProductCard from '../Product/ProductCard.js'
 import MetaData from "../layout/MetaData.js"
-import { clearErrors, getProduct } from '../../actions/productAction'
+import { clearErrors, getProducts } from '../../actions/productAction'
 import {useSelector, useDispatch} from "react-redux";
 import Loader from '../layout/Loader/Loader.js'
 import {useAlert} from "react-alert";
@@ -19,7 +19,7 @@ const Home = () => {
             alert.error(error);
             dispatch(clearErrors())
         }
-        dispatch(getProduct());
+        dispatch(getProducts());
     },[dispatch,error,alert]) 
 
     return (
