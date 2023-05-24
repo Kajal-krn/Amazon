@@ -9,10 +9,15 @@ import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
 import "./Product.css";
 
+const categories=[
+    "Laptop","Footwear","Bottom","Tops","Attire","Camera","Cycle","Mobile","Desktop","Book","Bag"
+]
+
 const Products = ({match}) => {
 
     const [currentPage, setCurrentPage] = useState(1);
     const [price, setPrice] = useState([0,50000]);
+    const [category, setCategory] = useState("");
 
     const alert = useAlert();
     const dispatch = useDispatch();
@@ -34,8 +39,8 @@ const Products = ({match}) => {
             dispatch(clearErrors())
         }
         console.log(price);
-        dispatch(getProducts(keyword,currentPage,price))
-    },[dispatch,alert,error,keyword,currentPage,price])
+        dispatch(getProducts(keyword,currentPage,price,category))
+    },[dispatch,alert,error,keyword,currentPage,price,category])
 
     return (
         <Fragment>{loading ? (<Loader />) : (
@@ -58,6 +63,18 @@ const Products = ({match}) => {
                         min={0}
                         max={50000}
                     />
+
+                    <Typography>Categories</Typography>
+                    <ul className="categoryBox">
+                        {categories.map((category) => (
+                            <li
+                                className="category-link"
+                                key={category}
+                                onClick={() => setCategory(category)}
+                            >{category}</li>
+                        ))}
+                    </ul>
+
                 </div>
 
                 {resultPerPage < filteredProductsCount && (
