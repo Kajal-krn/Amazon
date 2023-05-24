@@ -7,6 +7,7 @@ import {useAlert} from "react-alert";
 import Pagination from "react-js-pagination";
 import Slider from "@material-ui/core/Slider";
 import Typography from "@material-ui/core/Typography";
+import MetaData from "../layout/MetaData.js";
 import "./Product.css";
 
 const categories=[
@@ -57,6 +58,8 @@ const Products = ({match}) => {
     return (
         <Fragment>{loading ? (<Loader />) : (
             <Fragment>
+
+                <MetaData title={"PRODUCTS --AMAZON"} />
 
                 <h2 className="productHeading">Products</h2>
                 <div className="products">
