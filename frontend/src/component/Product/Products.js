@@ -5,17 +5,24 @@ import Loader from "../layout/Loader/Loader.js";
 import ProductCard from "./ProductCard.js";
 import {useAlert} from "react-alert";
 import Pagination from "react-js-pagination";
+import Slider from "@material-ui/core/Slider";
+import Typography from "@material-ui/core/Typography";
 import "./Product.css";
 
 const Products = ({match}) => {
 
     const [currentPage, setCurrentPage] = useState(1);
+    const [price, setPrice] = useState([0,50000]);
 
     const alert = useAlert();
     const dispatch = useDispatch();
-    const {loading,error,products,productsCount,resultPerPage} = useSelector(state => state.products)
+    const {loading,error,products,productsCount,resultPerPage,filteredProductsCount} = useSelector(state => state.products)
 
     const keyword = match.params.keyword;
+
+    const priceHandler = (e, newPrice) => {
+        setPrice(newPrice)
+    }
 
     const setCurrentPageNo = (e) => {
         setCurrentPage(e);
@@ -26,8 +33,9 @@ const Products = ({match}) => {
             alert.error(error);
             dispatch(clearErrors())
         }
-        dispatch(getProducts(keyword,currentPage))
-    },[dispatch,alert,error,keyword,currentPage])
+        console.log(price);
+        dispatch(getProducts(keyword,currentPage,price))
+    },[dispatch,alert,error,keyword,currentPage,price])
 
     return (
         <Fragment>{loading ? (<Loader />) : (
@@ -40,7 +48,19 @@ const Products = ({match}) => {
                     ))}
                 </div>
 
-                {resultPerPage < productsCount && (
+                <div className="filterBox">
+                    <Typography>Price</Typography>
+                    <Slider 
+                        value={price}
+                        onChange={priceHandler}
+                        valueLabelDisplay="auto"
+                        aria-labelledby="range-slider"
+                        min={0}
+                        max={50000}
+                    />
+                </div>
+
+                {resultPerPage < filteredProductsCount && (
                     <div className="paginationBox">
                         <Pagination
                             activePage={currentPage} 
