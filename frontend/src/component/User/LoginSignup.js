@@ -6,7 +6,7 @@ import LockOpenIcon from "@material-ui/icons/LockOpen";
 import FaceIcon from "@material-ui/icons/Face";
 import Profile from "../../images/Profile.png";
 import { useDispatch, useSelector } from "react-redux";
-import { login, clearErrors } from "../../actions/userAction.js";
+import { login, clearErrors, register } from "../../actions/userAction.js";
 import {useAlert}  from "react-alert";
 import "./LoginSignup.css";
 
@@ -66,7 +66,9 @@ const LoginSignup = ({history}) => {
         Form.set("password", password);
         Form.set("avatar", avatar);
 
-        console.log("Register Form submiited");
+        dispatch(register(Form));
+
+        //console.log("Register Form submiited");
     }
 
     const registerDataChange = (e) => {
