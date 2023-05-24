@@ -7,6 +7,7 @@ import Footer from './component/layout/Footer/Footer.js';
 import Home from './component/Home/Home.js';
 import ProductDetails from './component/Product/ProductDetails.js';
 import Products from './component/Product/Products.js';
+import Search from './component/Product/Search.js';
  
 function App() {
 
@@ -25,6 +26,8 @@ function App() {
             <Route exact path="/" component={Home} />
             <Route path="/product/:productId" component={ProductDetails} />
             <Route exact path="/products" component={Products} />
+            <Route path="/products/:keyword" component={Products} />
+            <Route exact path="/search" component={Search} />
 
             <Footer />
         </Router>

@@ -6,19 +6,21 @@ import ProductCard from "./ProductCard.js";
 import {useAlert} from "react-alert";
 import "./Product.css";
 
-const Products = () => {
+const Products = ({match}) => {
 
     const alert = useAlert();
     const dispatch = useDispatch();
     const {loading,error,products,productsCount} = useSelector(state => state.products)
+
+    const keyword = match.params.keyword;
 
     useEffect(() => {
         if(error){
             alert.error(error);
             dispatch(clearErrors())
         }
-        dispatch(getProducts())
-    },[dispatch,alert,error])
+        dispatch(getProducts(keyword))
+    },[dispatch,alert,error,keyword])
 
     return (
         <Fragment>{loading ? (<Loader />) : (
