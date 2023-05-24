@@ -10,7 +10,7 @@ import Typography from "@material-ui/core/Typography";
 import "./Product.css";
 
 const categories=[
-    "Laptop","Footwear","Bottom","Tops","Attire","Camera","Cycle","Mobile","Desktop","Book","Bag"
+    "All","Laptop","Footwear","Bottom","Tops","Attire","Camera","Cycle","Mobile","Desktop","Book","Bag"
 ]
 
 const Products = ({match}) => {
@@ -18,6 +18,7 @@ const Products = ({match}) => {
     const [currentPage, setCurrentPage] = useState(1);
     const [price, setPrice] = useState([0,50000]);
     const [category, setCategory] = useState("");
+    const [rating, setRating] = useState(0);
 
     const alert = useAlert();
     const dispatch = useDispatch();
@@ -33,14 +34,25 @@ const Products = ({match}) => {
         setCurrentPage(e);
     }
 
+    const categoryHandler = (e) => {
+        if(e.target.innerText===categories[0]){
+            setCategory("");
+        }else{
+            setCategory(e.target.innerText);
+        }
+    }
+
+    const ratingHandler = (e, newRating) => {
+        setRating(newRating);
+    }
+
     useEffect(() => {
         if(error){
             alert.error(error);
             dispatch(clearErrors())
         }
-        console.log(price);
-        dispatch(getProducts(keyword,currentPage,price,category))
-    },[dispatch,alert,error,keyword,currentPage,price,category])
+        dispatch(getProducts(keyword,currentPage,price,category,rating))
+    },[dispatch,alert,error,keyword,currentPage,price,category,rating])
 
     return (
         <Fragment>{loading ? (<Loader />) : (
@@ -70,10 +82,24 @@ const Products = ({match}) => {
                             <li
                                 className="category-link"
                                 key={category}
-                                onClick={() => setCategory(category)}
+                                value={category}
+                                onClick={categoryHandler}
                             >{category}</li>
                         ))}
                     </ul>
+
+                    <fieldset>
+                        <Typography component="legend">Ratings Above</Typography>
+                        <Slider
+                            value={rating}
+                            onChange={ratingHandler}
+                            valueLabelDisplay="auto"
+                            aria-labelledby="continuous-slider"
+                            min={0}
+                            max={5}
+
+                        />
+                    </fieldset>
 
                 </div>
 

@@ -13,6 +13,7 @@
     flex-wrap: wrap;
     padding: 0 5vmax;
     justify-content: center;
+    min-height: 40vh;
 }
 
 .pagination {
@@ -84,6 +85,11 @@
 .category-link:hover {
     color: tomato;
 }
+
+.filterBox > fieldset {
+    border: 1px solid rgba(0, 0, 0, 0.445);
+}
+  
 
 @media screen and (max-width: 600px) {
     .filterBox {
