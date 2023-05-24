@@ -1,8 +1,9 @@
 import React from 'react'
 import { Link } from "react-router-dom"
 import ReactStars from 'react-rating-stars-component'
+import "./ProductCard.css"
 
-const Product = ({product}) => {
+const ProductCard = ({product}) => {
 
     const options = {
         edit : false,
@@ -26,4 +27,4 @@ const Product = ({product}) => {
     )
 }
 
-export default Product
+export default ProductCard
