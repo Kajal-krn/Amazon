@@ -2,6 +2,7 @@ import React, { Fragment, useState } from 'react';
 import {useDispatch} from "react-redux";
 import { useAlert } from "react-alert";
 import {useHistory} from "react-router-dom"
+import {logout} from "../../../actions/userAction"
 import {SpeedDial,SpeedDialAction} from "@material-ui/lab";
 import Profile from "../../../images/Profile.png";
 import DashboardIcon from "@material-ui/icons/Dashboard";
@@ -41,7 +42,7 @@ const UserOptions = ({user}) => {
     }
 
     function logoutUser(){
-      //  dispatch(logout());
+        dispatch(logout());
         alert.success("Logout Successfully");
     }
 
