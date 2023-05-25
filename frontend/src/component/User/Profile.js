@@ -11,12 +11,8 @@ const Profile = () => {
     const {loading, isAuthenticated, user} = useSelector(state => state.user);
 
     useEffect(() => {
-        console.log(isAuthenticated);
         if(isAuthenticated === false){
-            console.log("kne");
             history.push("/login");
-        }else{
-            console.log("Error");
         }
     },[history,isAuthenticated])
 

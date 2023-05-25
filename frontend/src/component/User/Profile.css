@@ -22,7 +22,8 @@
 .profileContainer > div:first-child > h1 {
     color: rgba(0, 0, 0, 0.555);
     font: 500 2.2vmax "Roboto";
-    transform: translateX(-10vmax) translateY(-2vmax);
+    text-align: center;
+    margin: auto;
 }
   
 .profileContainer > div:first-child > img {
