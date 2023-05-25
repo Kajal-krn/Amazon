@@ -8,6 +8,7 @@ import Profile from "../../images/Profile.png";
 import { useDispatch, useSelector } from "react-redux";
 import { login, clearErrors, register } from "../../actions/userAction.js";
 import {useAlert}  from "react-alert";
+import MetaData from "../layout/MetaData.js"
 import "./LoginSignup.css";
 
 const LoginSignup = ({history}) => {
@@ -101,6 +102,9 @@ const LoginSignup = ({history}) => {
     return (
         <Fragment> {loading ? (<Loader />) : (
             <Fragment>
+
+                <MetaData title={`LOGIN/SIGNUP`}/>
+
                 <div className="LoginSignUpContainer">
                     <div className="LoginSignUpBox">
                         <div>
