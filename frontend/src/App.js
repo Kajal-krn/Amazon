@@ -9,6 +9,8 @@ import ProductDetails from './component/Product/ProductDetails.js';
 import Products from './component/Product/Products.js';
 import Search from './component/Product/Search.js';
 import LoginSignup from './component/User/LoginSignup.js';
+import store from "./store"
+import { loadUser } from './actions/userAction';
  
 function App() {
 
@@ -18,6 +20,9 @@ function App() {
                 families : ["Roboto","Droid Sans","Chilanka"]
             }
         })
+
+        store.dispatch(loadUser());
+
     },[])
 
     return (
