@@ -1,5 +1,5 @@
 import React, { Fragment, useState } from 'react';
-import {useDispatch} from "react-redux";
+import {useDispatch,useSelector} from "react-redux";
 import { useAlert } from "react-alert";
 import {useHistory} from "react-router-dom"
 import {logout} from "../../../actions/userAction"
@@ -10,6 +10,7 @@ import PersonIcon from "@material-ui/icons/Person";
 import ExitToAppIcon from "@material-ui/icons/ExitToApp";
 import ListAltIcon from "@material-ui/icons/ListAlt";
 import Backdrop from "@material-ui/core/Backdrop";
+import ShoppingCartIcon from "@material-ui/icons/ShoppingCart"
 import "./UserOptions.css";
 
 const UserOptions = ({user}) => {
@@ -17,9 +18,11 @@ const UserOptions = ({user}) => {
     const dispatch  = useDispatch();
     const alert = useAlert();
     const history = useHistory();
+    const {cartItems} = useSelector(state => state.cart)
 
     const options = [
         { icon : <ListAltIcon />, name: "Orders", click : orders },
+        { icon : <ShoppingCartIcon />, name: `Cart(${cartItems.length})`, click : cart},
         { icon : <PersonIcon />, name : "Profile", click : account },
         { icon : <ExitToAppIcon />, name : "Logout", click : logoutUser }
     ];
@@ -36,6 +39,10 @@ const UserOptions = ({user}) => {
 
     function orders(){
         history.push("/orders");
+    }
+
+    function cart(){
+        history.push("/cart");
     }
 
     function account(){
@@ -72,7 +79,7 @@ const UserOptions = ({user}) => {
                         tooltipTitle={option.name} 
                         onClick={option.click} 
                         key={option.name} 
-                        tooltipOpen={window.innerWidth <= 600 ? true : false} 
+                        tooltipOpen={true} 
                     />
                 ))}
             </SpeedDial>
