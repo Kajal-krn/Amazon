@@ -1,4 +1,4 @@
-import React,{Fragment, useState, useEffect, useRef} from 'react'
+import React,{Fragment, useEffect, useRef} from 'react'
 import {useDispatch, useSelector} from "react-redux"
 import { useAlert } from 'react-alert'
 import axios from "axios";
@@ -15,6 +15,7 @@ import {
     useStripe,
     useElements,
   } from "@stripe/react-stripe-js";
+import {createOrder, clearErrors} from "../../actions/orderAction"
 import "./Payment.css"
 
 const Payment = ({history}) => {
@@ -28,7 +29,16 @@ const Payment = ({history}) => {
 
     const {shippingInfo, cartItems} = useSelector(state => state.cart)
     const {user} = useSelector(state => state.user)
-  //  const {error} = useSelector(state => state.newOrder)
+    const {error} = useSelector(state => state.newOrder)
+
+    const order = {
+        shippingInfo,
+        orderItems : cartItems,
+        itemsPrice : orderInfo.subtotal,
+        taxPrice : orderInfo.tax,
+        shippingPrice : orderInfo.shippingCharges,
+        totalPrice : orderInfo.totalPrice
+    }
 
     const PaymentData = { amount : Math.round(orderInfo.totalPrice * 100) }  // for paise
 
@@ -71,6 +81,13 @@ const Payment = ({history}) => {
                 alert.error(result.error.message);
             }else{
                 if (result.paymentIntent.status === "succeeded"){
+
+                    order.paymentInfo = {
+                        id: result.paymentIntent.id,
+                        status: result.paymentIntent.status
+                    }
+                    
+                    dispatch(createOrder(order))
                     history.push("/success");
                 }else {
                     alert.error("There's some issue while processing payment ");
@@ -82,6 +99,15 @@ const Payment = ({history}) => {
             alert.error(error.response.data.message);
         }
     }
+
+    useEffect(() => {
+
+        if(error){
+            alert.error(error);
+            dispatch(clearErrors())
+        }
+
+    },[dispatch,alert,error])
 
     return (
         <Fragment>
