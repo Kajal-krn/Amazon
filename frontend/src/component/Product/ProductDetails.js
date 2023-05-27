@@ -7,6 +7,7 @@ import Loader from '../layout/Loader/Loader.js'
 import ReviewCard from './ReviewCard.js'
 import {useAlert} from "react-alert"
 import MetaData from '../layout/MetaData.js'
+import {addItemsToCart} from "../../actions/cartAction.js"
 import "./ProductDetails.css"
 
 const ProductDetails = ({match}) => {
@@ -44,6 +45,12 @@ const ProductDetails = ({match}) => {
         value : product.ratings,
         isHalf : true
     };
+
+    const addToCartHandler = () => {
+       // console.log(match.params.productId);
+        dispatch(addItemsToCart(match.params.productId, quantity));
+        alert.success("Item added to cart");
+    }
 
     useEffect(() => {
         if(error){
@@ -99,7 +106,7 @@ const ProductDetails = ({match}) => {
                                         <input value={quantity} type="number" readOnly />
                                         <button onClick={increaseQuantity}>+</button>
                                     </div>
-                                    <button>Add to Cart</button>
+                                    <button onClick={addToCartHandler}>Add to Cart</button>
                                 </div>
 
                                 <p>
