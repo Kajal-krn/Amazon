@@ -1,4 +1,4 @@
-import React,  { Fragment, useEffect } from 'react'
+import React,  { Fragment, useEffect, useState } from 'react'
 import Carousel from "react-material-ui-carousel"
 import {clearErrors, getProductDetails} from "../../actions/productAction.js"
 import {useDispatch, useSelector} from "react-redux"
@@ -15,6 +15,26 @@ const ProductDetails = ({match}) => {
     const alert = useAlert();
 
     const {loading,error,product} = useSelector(state => state.productDetails);
+
+    const [quantity, setQuantity] = useState(1);
+
+    const decreaseQuantity = () => {
+        if(quantity <= 1){
+            alert.show(`You have to select atleast ${quantity} product`);
+            return;
+        }
+        const newQuantity = quantity - 1;
+        setQuantity(newQuantity);
+    }
+
+    const increaseQuantity = () => {
+        if(quantity >= product.stock){
+            alert.show(`You can only select ${quantity} ${product.name} for now`);
+            return;
+        }
+        const newQuantity = quantity + 1;
+        setQuantity(newQuantity);
+    }
 
     const options = {
         edit : false,
@@ -75,9 +95,9 @@ const ProductDetails = ({match}) => {
                                 <h1>{`₹${product.price}`}</h1>
                                 <div className="detailsBlock-3-1">
                                     <div className="detailsBlock-3-1-1">
-                                        <button>-</button>
-                                        <input value="1" type="number" />
-                                        <button>+</button>
+                                        <button onClick={decreaseQuantity}>-</button>
+                                        <input value={quantity} type="number" readOnly />
+                                        <button onClick={increaseQuantity}>+</button>
                                     </div>
                                     <button>Add to Cart</button>
                                 </div>
@@ -103,7 +123,7 @@ const ProductDetails = ({match}) => {
                     {product.reviews && product.reviews[0] ? (
                         <div className="reviews">
                             {product.reviews && 
-                            product.reviews.map(review => <ReviewCard review={review}/>)}
+                            product.reviews.map(review => <ReviewCard review={review} key={review.user} />)}
                         </div>
                     ) : (
                         <p className="noReviews">No Reviews Yet</p>
