@@ -21,6 +21,7 @@ import ForgotPassword from './component/User/ForgotPassword.js';
 import ResetPassword from './component/User/ResetPassword.js';
 import Cart from "./component/Cart/Cart.js"
 import Shipping from "./component/Cart/Shipping.js"
+import ConfirmOrder from './component/Cart/ConfirmOrder.js';
 
 function App() {
 
@@ -56,6 +57,7 @@ function App() {
             <Route path="/password/reset/:token" component={ResetPassword} />
             <Route path="/cart" component={Cart} />
             <ProtectedRoute path="/shipping" component={Shipping}/>
+            <ProtectedRoute path="/orders/confirm" component={ConfirmOrder} />
 
             <Footer />
         </Router>
