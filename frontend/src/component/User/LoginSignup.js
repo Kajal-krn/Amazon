@@ -11,7 +11,7 @@ import {useAlert}  from "react-alert";
 import MetaData from "../layout/MetaData.js"
 import "./LoginSignup.css";
 
-const LoginSignup = ({history}) => {
+const LoginSignup = ({history, location}) => {
 
     const dispatch = useDispatch();
     const alert = useAlert();
@@ -87,6 +87,8 @@ const LoginSignup = ({history}) => {
         }
     }
 
+    const redrirectUrl = location.search ? location.search.split("=")[1] : "/account";
+
     useEffect(() => {
         if(error){
             alert.error(error);
@@ -94,10 +96,10 @@ const LoginSignup = ({history}) => {
         }
 
         if(isAuthenticated){
-            history.push("/account");
+            history.push(redrirectUrl);
         }
 
-    },[dispatch,error,alert,history,isAuthenticated])
+    },[dispatch,error,alert,history,isAuthenticated,redrirectUrl])
 
     return (
         <Fragment> {loading ? (<Loader />) : (
