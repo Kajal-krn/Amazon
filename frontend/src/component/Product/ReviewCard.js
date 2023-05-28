@@ -1,6 +1,5 @@
 import React from 'react'
 import {Rating} from "@material-ui/lab"
-import profilePng from "../../images/profile.jpg"
 import "./ReviewCard.css"
 
 const ReviewCard = ({review}) => {
@@ -13,7 +12,7 @@ const ReviewCard = ({review}) => {
 
     return (
         <div className="reviewCard">
-            <img src={profilePng} alt="User" />
+            <img src={review.userProfileUrl} alt="User" />
             <p>{review.name}</p>
             <Rating {...options} />
             <span className="reviewCardComment">{review.comment}</span>
