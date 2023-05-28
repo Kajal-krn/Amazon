@@ -26,8 +26,9 @@ import Payment from './component/Cart/Payment.js';
 import axios from "axios";
 import {Elements} from "@stripe/react-stripe-js";
 import {loadStripe} from "@stripe/stripe-js";
-import OrderSuccess from "./component/Cart/OrderSuccess.js"
-import MyOrders from "./component/Orders/MyOrders.js"
+import OrderSuccess from "./component/Cart/OrderSuccess.js";
+import MyOrders from "./component/Orders/MyOrders.js";
+import OrderDetails from "./component/Orders/OrderDetails.js";
 
 function App() {
 
@@ -79,6 +80,7 @@ function App() {
             )}
             <ProtectedRoute path="/success" component={OrderSuccess} />
             <ProtectedRoute exact path="/orders" component={MyOrders} />
+            <ProtectedRoute exact path="/order/:OrderId" component={OrderDetails} />
 
             <Footer />
         </Router>

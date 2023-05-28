@@ -7,11 +7,14 @@ import {
     MY_ORDERS_REQUEST,
     MY_ORDERS_SUCCESS,
     MY_ORDERS_FAIL,
+    ORDER_DETAILS_REQUEST,
+    ORDER_DETAILS_SUCCESS,
+    ORDER_DETAILS_FAIL,
     CLEAR_ERRORS
 } from "../constants/orderConstants"
 
 // creating new order
-export const createOrder = (order) => async(dispatch, getState) => {
+export const createOrder = (order) => async(dispatch) => {
     try{
         dispatch({
             type : CREATE_ORDER_REQUEST
@@ -39,16 +42,13 @@ export const createOrder = (order) => async(dispatch, getState) => {
 }
 
 // my orders
-export const myOrders = (order) => async(dispatch, getState) => {
+export const myOrders = () => async(dispatch) => {
     try{
         dispatch({
             type : MY_ORDERS_REQUEST
         })
 
-        const {data} = await axios.get(
-            "/api/v1/orders/me",
-           
-        )
+        const {data} = await axios.get("/api/v1/orders/me")
 
         dispatch({
             type : MY_ORDERS_SUCCESS,
@@ -62,6 +62,29 @@ export const myOrders = (order) => async(dispatch, getState) => {
         })
     }
 }
+
+// single order details
+export const orderDetails = (OrderId) => async(dispatch) => {
+    try{
+        dispatch({
+            type : ORDER_DETAILS_REQUEST
+        })
+
+        const {data} = await axios.get(`/api/v1/order/${OrderId}`);
+
+        dispatch({
+            type : ORDER_DETAILS_SUCCESS,
+            payload : data.order
+        })
+
+    }catch(error){
+        dispatch({
+            type : ORDER_DETAILS_FAIL,
+            payload : error.response.data.message
+        })
+    }
+}
+
 
 // clearing errors
 export const clearErrors = () => async(dispatch) => {
