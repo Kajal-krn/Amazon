@@ -47,9 +47,14 @@
     padding: 1vmax 0;
 }
 
-.detailsBlock-2-span {
-    font: 200 0.8vmax cursive;
-    color: rgba(0, 0, 0, 0.699);
+.detailsBlock-2 > span {
+    font: 200 1.4vmax cursive;
+}
+
+.detailsBlock-2-span{
+    font: 200 1vmax cursive;
+    color: rgb(54, 52, 52);
+
 }
 
 .detailsBlock-3 {
@@ -142,6 +147,19 @@
 .submitReview:hover {
     background-color: rgb(189, 40, 29);
     transform: scale(1.1);
+}
+
+.submitDialog {
+    display: flex;
+    flex-direction: column;
+}
+
+.submitDialogTextArea {
+    border: 1px solid rgba(0, 0, 0, 0.082);
+    margin: 1vmax 0;
+    outline: none;
+    padding: 1rem;
+    font: 300 1rem "Roboto";
 }
 
 .reviewHeading {
