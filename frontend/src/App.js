@@ -27,6 +27,7 @@ import axios from "axios";
 import {Elements} from "@stripe/react-stripe-js";
 import {loadStripe} from "@stripe/stripe-js";
 import OrderSuccess from "./component/Cart/OrderSuccess.js"
+import MyOrders from "./component/Orders/MyOrders.js"
 
 function App() {
 
@@ -77,6 +78,7 @@ function App() {
                 </Elements>
             )}
             <ProtectedRoute path="/success" component={OrderSuccess} />
+            <ProtectedRoute exact path="/orders" component={MyOrders} />
 
             <Footer />
         </Router>
