@@ -62,6 +62,10 @@ const productSchema = new mongoose.Schema({
             comment : {
                 type : String,
                 required : true
+            },
+            userProfileUrl : {
+                type : String,
+                default : null
             }
         }
     ],

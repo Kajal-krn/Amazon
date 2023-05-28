@@ -122,6 +122,7 @@ exports.createProductReview = catchAsyncErrors(async(req,res,next) => {
         user : req.user._id,
         name : req.user.name,
         rating : Number(rating),
+        userProfileUrl : req.user.avatar.url,
         comment
     }
 
