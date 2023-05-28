@@ -106,7 +106,7 @@ const ProductDetails = ({match}) => {
                                         <input value={quantity} type="number" readOnly />
                                         <button onClick={increaseQuantity}>+</button>
                                     </div>
-                                    <button onClick={addToCartHandler}>Add to Cart</button>
+                                    <button disabled={product.stock < 1 ? true : false} onClick={addToCartHandler}>Add to Cart</button>
                                 </div>
 
                                 <p>
