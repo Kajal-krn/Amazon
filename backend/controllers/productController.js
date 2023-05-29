@@ -2,12 +2,36 @@ const Product = require("../models/productModel");
 const ErrorHandler = require("../utils/errorHandler");
 const catchAsyncErrors = require("../middleware/catchAsyncErrors");
 const ApiFeatures = require("../utils/apiFeatures");
+const cloudinary = require("cloudinary");
 
 //create  product --Admin
 exports.createProduct = catchAsyncErrors(async(req,res,next) => {   // passed the while async function inside catchAsyncError , so it carched the error and not let the server crash
     
+    let images = [];
+
+    if(typeof req.body.images === "string"){
+        images.push(req.body.images);
+    }else{
+        images = req.body.images;
+    }
+
+    let imagesLink = [];
+
+    for (let i=0; i<images.length; i++){
+        const result = await cloudinary.v2.uploader.upload(images[i], {
+            folder : "products",
+        })
+
+        imagesLink.push({
+            public_id : result.public_id,
+            url : result.secure_url
+        })
+    }
+
+    req.body.images = imagesLink;
+
     req.body.user = req.user.id;   // ading a new field (user) in req.boy for product create
-    //console.log(req.body);
+
     const product = await Product.create(req.body);
 
     res.status(200).json({
