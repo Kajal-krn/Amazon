@@ -1,13 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
+import {useSelector,useDispatch} from "react-redux"
+import {useAlert} from "react-alert"
 import { Link } from 'react-router-dom'
 import { Typography } from '@material-ui/core'
 import SideBar from './SideBar.js'
 import {Doughnut, Line} from "react-chartjs-2"
+import {getAdminProducts, clearErrors} from "../../actions/adminProductAction"
 import MetaData from "../layout/MetaData.js"
 import "./DashBoard.css"
 
 
 const DashBoard = () => {
+
+    const dispatch = useDispatch();
+    const alert = useAlert();
+
+    const {error : productError, products} = useSelector(state => state.adminProducts);
+
+    let OutOfStock = 0;
+    let InStock = 0;
+
+    products && products.forEach(product => {
+        if(product.stock === 0){
+            OutOfStock += 1;
+        }else{
+            InStock += 1;
+        }
+    })
 
     const lineState = {
         labels: ["Initial Amount", "Amount Earned"],
@@ -27,10 +46,18 @@ const DashBoard = () => {
             {
                 backgroundColor: ["#00A6B4", "#6800B4"],
                 hoverBackgroundColor: ["#4B5000", "#35014F"],
-                data: [2, 10],
+                data: [OutOfStock, InStock],
             },
         ]
     }
+
+    useEffect(() => {
+        if(productError){
+            alert.error(productError);
+            dispatch(clearErrors());
+        }
+        dispatch(getAdminProducts());
+    },[dispatch,productError,alert])
 
     return (
         <div className="dashboard">
@@ -49,7 +76,7 @@ const DashBoard = () => {
                     <div className="dashboardSummaryBox2">
                         <Link to="/admin/products">
                             <p>Products</p>
-                            <p>50</p>
+                            <p>{products && (OutOfStock+InStock)}</p>
                         </Link>
                         <Link to="/admin/orders">
                             <p>Orders</p>
