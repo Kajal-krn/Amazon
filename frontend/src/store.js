@@ -6,6 +6,7 @@ import {userReducer, profileReducer, forgotPasswordReducer} from "./reducers/use
 import {cartReducer} from "./reducers/cartReducer"
 import {MyOrdersReducer, newOrderReducer, orderDetailsReducer} from "./reducers/orderReducer"
 import {adminNewProductReducer, adminProductsReducer, adminProductReducer} from "./reducers/adminProductReducer"
+import { adminOrderReducer, adminOrdersReducer } from "./reducers/adminOrderReducer";
 
 const reducer = combineReducers({
     products : productReducer,
@@ -20,7 +21,9 @@ const reducer = combineReducers({
     newReview : newReviewReducer,
     adminProducts : adminProductsReducer,
     adminNewProduct : adminNewProductReducer,
-    adminProduct : adminProductReducer
+    adminProduct : adminProductReducer,
+    adminOrders : adminOrdersReducer,
+    adminOrder : adminOrderReducer
 });
 
 let initialState = {

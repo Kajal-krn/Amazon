@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter as Router , Route } from 'react-router-dom';
+import { BrowserRouter as Router , Route , Switch} from 'react-router-dom';
 import React , {useEffect,useState} from 'react';
 import WebFont from 'webfontloader';
 import Header from './component/layout/Header/Header.js';
@@ -33,6 +33,8 @@ import DashBoard from "./component/Admin/DashBoard.js";
 import ProductList from "./component/Admin/ProductList.js"
 import CreateProduct from './component/Admin/CreateProduct.js';
 import UpdateProduct from './component/Admin/UpdateProduct.js';
+import OrderList from './component/Admin/OrderList.js';
+import ProcessOrder from "./component/Admin/ProcessOrder.js"
 
 function App() {
 
@@ -88,8 +90,12 @@ function App() {
 
             <ProtectedRoute isAdmin={true} exact path="/admin/dashboard" component={DashBoard} />
             <ProtectedRoute isAdmin={true} exact path="/admin/products" component={ProductList} />
-            <ProtectedRoute isAdmin={true} exact path="/admin/product/create" component={CreateProduct} />
-            <ProtectedRoute isAdmin={true} exact path="/admin/product/:id" component={UpdateProduct} />
+            <Switch>
+                <ProtectedRoute isAdmin={true} exact path="/admin/product/create" component={CreateProduct} />
+                <ProtectedRoute isAdmin={true} exact path="/admin/product/:id" component={UpdateProduct} />
+            </Switch>
+            <ProtectedRoute exact path="/admin/orders" component={OrderList}/>
+            <ProtectedRoute exact path="/admin/order/:id" component={ProcessOrder} />
 
             <Footer />
         </Router>
