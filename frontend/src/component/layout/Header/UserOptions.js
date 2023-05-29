@@ -34,7 +34,7 @@ const UserOptions = ({user}) => {
     const [open,setOpen] = useState(false);
 
     function dashboard(){
-        history.push("/dashboard");
+        history.push("/admin/dashboard");
     }
 
     function orders(){
