@@ -4,6 +4,9 @@ import {
     ADMIN_PRODUCTS_REQUEST,
     ADMIN_PRODUCTS_SUCCESS,
     ADMIN_PRODUCTS_FAIL,
+    ADMIN_NEW_PRODUCT_REQUEST,
+    ADMIN_NEW_PRODUCT_SUCCESS,
+    ADMIN_NEW_PRODUCT_FAIL,
     CLEAR_ERRORS
 } from "../constants/adminProductConstants.js"
 
@@ -28,6 +31,34 @@ export const getAdminProducts = () => async(dispatch) => {
         })
     }
 }
+
+// new product --Admin
+export const adminCreateProduct = (product) => async(dispatch) => {
+    try{
+        dispatch({
+            type : ADMIN_NEW_PRODUCT_REQUEST
+        })
+
+        const config = {headers : {"Content-Type" : "application/json"}}
+
+        const {data} = await axios.post(
+            "/api/v1/admin/products/new", 
+            product, 
+            config
+        );
+
+        dispatch({
+            type : ADMIN_NEW_PRODUCT_SUCCESS,
+            payload : data
+        })
+    }catch(error){
+        dispatch({
+            type : ADMIN_NEW_PRODUCT_FAIL,
+            payload : error.response.data.message
+        })
+    }
+}
+
 
 // clearing errors
 export const clearErrors = () => async(dispatch) => {

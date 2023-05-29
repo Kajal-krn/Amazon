@@ -31,6 +31,7 @@ import MyOrders from "./component/Orders/MyOrders.js";
 import OrderDetails from "./component/Orders/OrderDetails.js";
 import DashBoard from "./component/Admin/DashBoard.js";
 import ProductList from "./component/Admin/ProductList.js"
+import CreateProduct from './component/Admin/CreateProduct.js';
 
 function App() {
 
@@ -86,6 +87,7 @@ function App() {
 
             <ProtectedRoute isAdmin={true} exact path="/admin/dashboard" component={DashBoard} />
             <ProtectedRoute isAdmin={true} exact path="/admin/products" component={ProductList} />
+            <ProtectedRoute isAdmin={true} exact path="/admin/product/create" component={CreateProduct} />
 
             <Footer />
         </Router>
