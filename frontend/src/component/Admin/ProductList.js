@@ -6,17 +6,19 @@ import {Button} from "@material-ui/core"
 import EditIcon from "@material-ui/icons/Edit"
 import DeleteIcon from "@material-ui/icons/Delete"
 import {DataGrid} from "@material-ui/data-grid"
-import {getAdminProducts, clearErrors} from "../../actions/adminProductAction"
+import {getAdminProducts, clearErrors, adminDeleteProduct} from "../../actions/adminProductAction"
 import MetaData from "../layout/MetaData.js"
 import SideBar from "./SideBar.js"
+import { ADMIN_DELETE_PRODUCT_RESET } from '../../constants/adminProductConstants'
 import "./ProductList.css"
 
-const ProductList = () => {
+const ProductList = ({history}) => {
 
     const dispatch = useDispatch();
     const alert = useAlert();
     
     const {error,products} = useSelector(state => state.adminProducts);
+    const { error: deleteError, success, message } = useSelector(state => state.adminProduct);
 
     const columns = [
         { field: "id", headerName: "Product ID", minWidth: 200, flex: 0.5 },
@@ -56,7 +58,8 @@ const ProductList = () => {
     })
 
     const deleteProductHandler = (id) => {
-        //dispatch(deleteProduct(id));
+      console.log(id);
+        dispatch(adminDeleteProduct(id));
     };
 
     useEffect(() => {
@@ -64,9 +67,19 @@ const ProductList = () => {
             alert.error(error);
             dispatch(clearErrors());
         }
+        if (deleteError) {
+            alert.error(deleteError);
+            dispatch(clearErrors());
+        }
+    
+        if (success) {
+            alert.success(message);
+            history.push("/admin/products");
+            dispatch({ type: ADMIN_DELETE_PRODUCT_RESET });
+        }
 
         dispatch(getAdminProducts());
-    },[dispatch,error,alert])
+    },[dispatch,error,alert,deleteError,history,message,success])
 
     return (
         <Fragment>
