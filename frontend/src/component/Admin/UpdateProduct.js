@@ -35,7 +35,8 @@ const UpdateProduct = ({match}) => {
     const [stock, setStock] = useState(0);
     const [images, setImages] = useState([]);
     const [imagesPreview, setImagesPreview] = useState([]);
-    const [oldImages, setOldImages] = useState([])
+    const [oldImages, setOldImages] = useState([]);
+    const [imageChange , setImageChnage] = useState(false);
 
     const ProductSubmitHandler = (e) => {
         e.preventDefault();
@@ -50,12 +51,14 @@ const UpdateProduct = ({match}) => {
         images.forEach((image) => {
             Form.append("images", image);
         })
+        Form.set("ImageChange",imageChange);
 
         dispatch(adminUpdateProduct(match.params.id, Form));
     }
 
     const ProductImagesChange = (e) => {
         const files = Array.from(e.target.files);
+        setImageChnage(true);
     
         setImages([]);
         setImagesPreview([]);
@@ -86,6 +89,7 @@ const UpdateProduct = ({match}) => {
             setCategory(product.category);
             setStock(product.stock);
             setOldImages(product.images)
+          //  setImages(product.images);
         }
 
         if(error){
