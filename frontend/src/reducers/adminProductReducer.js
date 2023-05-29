@@ -10,6 +10,10 @@ import {
     ADMIN_DELETE_PRODUCT_SUCCESS,
     ADMIN_DELETE_PRODUCT_RESET,
     ADMIN_DELETE_PRODUCT_FAIL,
+    ADMIN_UPDATE_PRODUCT_REQUEST,
+    ADMIN_UPDATE_PRODUCT_SUCCESS,
+    ADMIN_UPDATE_PRODUCT_RESET,
+    ADMIN_UPDATE_PRODUCT_FAIL,
     CLEAR_ERRORS
 } from "../constants/adminProductConstants.js"
 
@@ -82,11 +86,13 @@ export const adminProductReducer = (state = {},action) => {
 
     switch(action.type){
         case ADMIN_DELETE_PRODUCT_REQUEST:
+        case ADMIN_UPDATE_PRODUCT_REQUEST:
             return{
                 loading : true,
                 ...state
             };
         case ADMIN_DELETE_PRODUCT_SUCCESS:
+        case ADMIN_UPDATE_PRODUCT_SUCCESS:
             return{
                 ...state,
                 loading : false,
@@ -94,6 +100,7 @@ export const adminProductReducer = (state = {},action) => {
                 message : action.payload.message
             }
         case ADMIN_DELETE_PRODUCT_FAIL:
+        case ADMIN_UPDATE_PRODUCT_FAIL:
             return{
                 ...state,
                 loading : false,
@@ -102,6 +109,7 @@ export const adminProductReducer = (state = {},action) => {
                 error : action.payload
             }
         case ADMIN_DELETE_PRODUCT_RESET:
+        case ADMIN_UPDATE_PRODUCT_RESET:
             return{
                 ...state,
                 loading : false,

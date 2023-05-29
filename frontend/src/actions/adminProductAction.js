@@ -10,6 +10,9 @@ import {
     ADMIN_DELETE_PRODUCT_REQUEST,
     ADMIN_DELETE_PRODUCT_SUCCESS,
     ADMIN_DELETE_PRODUCT_FAIL,
+    ADMIN_UPDATE_PRODUCT_REQUEST,
+    ADMIN_UPDATE_PRODUCT_SUCCESS,
+    ADMIN_UPDATE_PRODUCT_FAIL,
     CLEAR_ERRORS
 } from "../constants/adminProductConstants.js"
 
@@ -77,6 +80,33 @@ export const adminDeleteProduct = (productId) => async(dispatch) => {
     }catch(error){
         dispatch({
             type : ADMIN_DELETE_PRODUCT_FAIL,
+            payload : error.response.data.message
+        })
+    }
+}
+
+// update product --Admin
+export const adminUpdateProduct = (productId, ProductData) => async(dispatch) => {
+    try{
+        dispatch({
+            type : ADMIN_UPDATE_PRODUCT_REQUEST
+        })
+
+        const config = {headers : {"Content-Type" : "multipart/form-data"}}
+
+        const {data} = await axios.put(
+            `/api/v1/admin/products/${productId}`,
+            ProductData,
+            config
+        );
+
+        dispatch({
+            type : ADMIN_UPDATE_PRODUCT_SUCCESS,
+            payload : data
+        })
+    }catch(error){
+        dispatch({
+            type : ADMIN_UPDATE_PRODUCT_FAIL,
             payload : error.response.data.message
         })
     }
