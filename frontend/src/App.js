@@ -38,6 +38,7 @@ import ProcessOrder from "./component/Admin/ProcessOrder.js";
 import UserList from './component/Admin/UserList.js';
 import UpdateUser from './component/Admin/UpdateUser.js';
 import ProductReviews from './component/Admin/ProductReviews.js';
+import Contact from "./component/layout/Contact/Contact.js"
 
 function App() {
 
@@ -102,6 +103,8 @@ function App() {
             <ProtectedRoute exact path="/admin/users/" component={UserList} />
             <ProtectedRoute exact path="/admin/user/:id" component={UpdateUser} />
             <ProtectedRoute exact path="/admin/reviews" component={ProductReviews} />
+
+            <ProtectedRoute exact path="/contact" component={Contact} />
 
             <Footer />
         </Router>
