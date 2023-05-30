@@ -81,7 +81,7 @@ export const adminNewProductReducer = (state = {product : {}},action) => {
     }
 }
 
-// delete product -- Admin
+// update & delete product -- Admin
 export const adminProductReducer = (state = {},action) => {
 
     switch(action.type){
