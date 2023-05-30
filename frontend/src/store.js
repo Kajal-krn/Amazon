@@ -7,6 +7,7 @@ import {cartReducer} from "./reducers/cartReducer"
 import {MyOrdersReducer, newOrderReducer, orderDetailsReducer} from "./reducers/orderReducer"
 import {adminNewProductReducer, adminProductsReducer, adminProductReducer} from "./reducers/adminProductReducer"
 import { adminOrderReducer, adminOrdersReducer } from "./reducers/adminOrderReducer";
+import {adminAllUsersReducer, adminUserDetailsReducer, adminUserReducer} from "./reducers/adminUserReducer"
 
 const reducer = combineReducers({
     products : productReducer,
@@ -23,7 +24,10 @@ const reducer = combineReducers({
     adminNewProduct : adminNewProductReducer,
     adminProduct : adminProductReducer,
     adminOrders : adminOrdersReducer,
-    adminOrder : adminOrderReducer
+    adminOrder : adminOrderReducer,
+    adminUsers : adminAllUsersReducer,
+    adminUserDetails : adminUserDetailsReducer, // for user details
+    adminUser : adminUserReducer  // change details of user or delete user
 });
 
 let initialState = {

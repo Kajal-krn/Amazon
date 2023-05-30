@@ -7,6 +7,7 @@ import SideBar from './SideBar.js'
 import {Doughnut, Line} from "react-chartjs-2"
 import {getAdminProducts, clearErrors as productErrors} from "../../actions/adminProductAction"
 import {adminAllOrders, clearErrors as orderClearErrors} from "../../actions/adminOrderAction"
+import {adminAllUsers, clearErrors as userClearErrors} from "../../actions/adminUserAction"
 import MetaData from "../layout/MetaData.js"
 import "./DashBoard.css"
 
@@ -18,6 +19,7 @@ const DashBoard = () => {
 
     const {error : productError, products} = useSelector(state => state.adminProducts);
     const {error : orderError, orders} = useSelector(state => state.adminOrders);
+    const {error : userError, users} = useSelector(state => state.adminUsers);
 
     let OutOfStock = 0;
     let InStock = 0;
@@ -88,9 +90,14 @@ const DashBoard = () => {
             alert.error(orderError);
             dispatch(orderClearErrors());
         }
+        if(userError){
+            alert.error(userError);
+            dispatch(userClearErrors());
+        }
         dispatch(getAdminProducts());
         dispatch(adminAllOrders());
-    },[dispatch,productError,alert,orderError])
+        dispatch(adminAllUsers());
+    },[dispatch,productError,alert,orderError,userError])
 
     return (
         <div className="dashboard">
@@ -103,7 +110,7 @@ const DashBoard = () => {
                 <div className="dashboardSummary">
                     <div>
                         <p>
-                            Total Amount <br/> 28100
+                            Total Amount <br/> {totalAmount}
                         </p>
                     </div>
                     <div className="dashboardSummaryBox2">
@@ -117,7 +124,7 @@ const DashBoard = () => {
                         </Link>
                         <Link to="/admin/users">
                             <p>Users</p>
-                            <p>5</p>
+                            <p>{users && users.length}</p>
                         </Link>
                     </div>
                 </div>
