@@ -103,14 +103,14 @@ function App() {
                 <ProtectedRoute isAdmin={true} exact path="/admin/product/create" component={CreateProduct} />
                 <ProtectedRoute isAdmin={true} exact path="/admin/product/:id" component={UpdateProduct} />
 
-                <ProtectedRoute exact path="/admin/orders" component={OrderList}/>
-                <ProtectedRoute exact path="/admin/order/:id" component={ProcessOrder} />
-                <ProtectedRoute exact path="/admin/users/" component={UserList} />
-                <ProtectedRoute exact path="/admin/user/:id" component={UpdateUser} />
-                <ProtectedRoute exact path="/admin/reviews" component={ProductReviews} />
+                <ProtectedRoute isAdmin={true} exact path="/admin/orders" component={OrderList}/>
+                <ProtectedRoute isAdmin={true} exact path="/admin/order/:id" component={ProcessOrder} />
+                <ProtectedRoute isAdmin={true} exact path="/admin/users/" component={UserList} />
+                <ProtectedRoute isAdmin={true} exact path="/admin/user/:id" component={UpdateUser} />
+                <ProtectedRoute isAdmin={true} exact path="/admin/reviews" component={ProductReviews} />
 
-                <ProtectedRoute exact path="/contact" component={Contact} />
-                <ProtectedRoute exact path="/about" component={About} />
+                <Route exact path="/contact" component={Contact} />
+                <Route exact path="/about" component={About} />
 
                 <Route component={ window.location.pathname === "/process/payment" ? null : NotFound } />  {/*  process payment is not a part of switch  */}
             </Switch>
