@@ -33,8 +33,8 @@ const Home = () => {
                     <MetaData title="AMAZON" />
 
                     <div className="banner">
-                        <p>Welcome to Amazon</p>
-                        <h1>FIND AMAZING PRODUCTS BELOW</h1>
+                        {/* <p></p>
+                        <h1></h1> */}
 
                         <a href="#container">  {/*refering to container below */}
                             <button>

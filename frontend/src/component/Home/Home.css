@@ -1,5 +1,8 @@
 .banner {
-    background-image: linear-gradient(to right, #635dc0, #3027ae);
+    background-image: url("../../images/cover.jpg");
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
     height: 100vmin;
     display: flex;
     flex-direction: column;
@@ -15,11 +18,12 @@
 }
 
 .banner > p {
+    margin-left: 15vmax;
     font: 300 1.4vmax "Lucida Sans";
 }
 
 .banner > a > button {
-    margin-bottom: 5vmax;
+    margin-top: 15vmax;
     cursor: pointer;
     background-color: white;
     border: 1px solid white;
@@ -28,6 +32,7 @@
     transition: all 0.5s;
     width: 9vmax;
     font: 500 1vmax "Roboto";
+    margin-left: 13vmax;
 }
 
 .banner > a > button:hover {
